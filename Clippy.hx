@@ -12,6 +12,8 @@ class Clippy {
     var id:String = flash.Lib.current.loaderInfo.parameters.id;
     var copied:String = flash.Lib.current.loaderInfo.parameters.copied;
     var copyto:String = flash.Lib.current.loaderInfo.parameters.copyto;
+    var mouseover:String = flash.Lib.current.loaderInfo.parameters.mouseover;
+    var mouseout:String = flash.Lib.current.loaderInfo.parameters.mouseout;
     if(copied == null){ copied = "copied!";};
     if(copyto == null){ copyto = "copy to clipboard";};
 
@@ -50,12 +52,18 @@ class Clippy {
 
     button.addEventListener(MouseEvent.MOUSE_OVER, function(e:MouseEvent) {
       label.visible = true;
+      if (mouseover != null) {
+        ExternalInterface.call(mouseover);
+      }
     });
 
     button.addEventListener(MouseEvent.MOUSE_OUT, function(e:MouseEvent) {
       label.visible = false;
       label.text = copyto;
       label.setTextFormat(format);
+      if (mouseout != null) {
+        ExternalInterface.call(mouseout);
+      }
     });
 
     flash.Lib.current.addChild(button);
